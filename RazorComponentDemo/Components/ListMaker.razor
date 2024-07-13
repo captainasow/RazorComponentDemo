@@ -1,0 +1,63 @@
+﻿
+<div class="container">
+    <header>
+        @if(Header != null)
+        {
+            @Header
+        }
+        else
+        {
+            <h3>Default Title</h3>
+        }
+    </header>
+    <h4>@Title</h4>
+    <div class="row">
+        <input type="type" class="col-6" @bind=currentItem/>
+        <input type="button" class="col-1" value="Add Item" @onclick="AddItem"/>
+    </div>
+    <div class="row">
+        <ul>
+            @foreach (var item in items)
+            {
+                <li>@item</li>
+            }
+
+
+        </ul>
+    </div>
+    <footer>
+        @if (Footer != null)
+        {
+            @Footer
+        }
+        else
+        {
+            <h3>Default Footer</h3>
+        }
+    </footer>
+</div>
+
+@code {
+    string currentItem = "";
+    List<string> items = new();
+
+    [Parameter]
+    public string Title { get; set; } = "Simple List Maker";
+    [Parameter]
+    public RenderFragment? Header { get; set; }
+    [Parameter]
+    public RenderFragment? Footer { get; set; }
+   // [Parameter]
+ //   public RenderFragment? ChildContent { get; set; }
+
+
+    void AddItem()
+    {
+        if(!string.IsNullOrWhiteSpace(currentItem))
+        {
+            items.Add(currentItem);
+            currentItem = "";
+        }
+       
+    }
+}
